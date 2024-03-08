@@ -76,18 +76,19 @@ scene.add(caveFloor)
 
 // OBJECTS
 // torusKnot
-const torusKnotGeometry = new THREE.ConeGeometry(1, 0.2)
-const torusKnotMaterial = new THREE.MeshBasicMaterial()
-const torusKnot = new THREE.Mesh(torusKnotGeometry, torusKnotMaterial)
-torusKnot.position.set(6, 1.5, 0)
+const torusKnotGeometry = new THREE.ConeGeometry(1, 1);
+const torusKnotMaterial = new THREE.MeshBasicMaterial();
+const torusKnot = new THREE.Mesh(torusKnotGeometry, torusKnotMaterial);
+torusKnot.position.set(3, 1.5, )
 torusKnot.castShadow = true
 scene.add(torusKnot)
 
 // Object to obscure shadow
-const obscuringGeometry = new THREE.BoxGeometry(1, 1, 1)
-const obscuringMaterial = new THREE.MeshBasicMaterial({ color: 0x000000 })
+const obscuringGeometry = new THREE.TorusKnotGeometry(0.55, 0.08)
+const obscuringMaterial = new THREE.MeshNormalMaterial()
 const obscuringObject = new THREE.Mesh(obscuringGeometry, obscuringMaterial)
-obscuringObject.position.set(8, 1.5, 0) // Position it between torusKnot and light source
+obscuringObject.position.set(6, 1.5, 0) 
+obscuringObject.castShadow = true
 scene.add(obscuringObject)
 
 // SUN
@@ -226,17 +227,30 @@ document.querySelector('#fourth-change').onclick = function() {
 const clock = new THREE.Clock()
 
 // Animate
-const animation = () =>
-{
-    // Return elapsedTime
+const animation = () => {
     const elapsedTime = clock.getElapsedTime()
 
-    // Animate Objects
-    //torusKnot.rotation.y = elapsedTime
-    //torusKnot.position.z = Math.sin(elapsedTime * 0.5) * 2
+    // Update torusKnot position and rotation
+    if (domObject.firstChange) {
+        torusKnot.rotation.y = elapsedTime
+        torusKnot.rotation.z = elapsedTime
+    }
+    if (domObject.secondChange) {
+        torusKnot.position.y = Math.sin(elapsedTime * 0.5) * 6
+    }
+    if (domObject.thirdChange) {
+        torusKnot.position.y = 2
+    }
 
-    // Update directionalLightHelper
-    //directionalLightHelper.update()
+
+    // Update obscuring object position and rotation to match torusKnot
+    obscuringObject.position.copy(torusKnot.position)
+    obscuringObject.rotation.copy(torusKnot.rotation)
+
+    // Update directionalLight position
+    if (domObject.fourthChange) {
+        directionalLight.position.y -= 0.05
+    }
 
     // Update sun position to match directionalLight position
     sun.position.copy(directionalLight.position)
@@ -245,39 +259,17 @@ const animation = () =>
     controls.update()
 
     // DOM INTERACTIONS
-    // part 1
-    if(domObject.part === 1){
+    // Update camera position and lookAt based on the current part
+    if (domObject.part === 1) {
         camera.position.set(1.1, 0.3, 1.3)
         camera.lookAt(-5, 0, 1.5)
     }
-
-    // part 2
-    if(domObject.part === 2){
+    if (domObject.part === 2) {
         camera.position.set(9.9, 3.5, 10.5)
         camera.lookAt(0, 0, 0)
     }
 
-    // first-change
-    if(domObject.firstChange){
-       torusKnot.rotation.y = elapsedTime
-       torusKnot.rotation.z = elapsedTime
-    }
-    // second-change
-    if(domObject.secondChange){
-        torusKnot.position.y = Math.sin(elapsedTime * 0.5) * 6
-    }
-
-    // third-change
-    if(domObject.thirdChange){
-        torusKnot.position.y = 2
-    }
-
-    // fourth-change
-    if(domObject.fourthChange){
-        directionalLight.position.y -= 0.05
-    }
-
-    // Renderer
+    // Render scene
     renderer.render(scene, camera)
 
     // Request next frame

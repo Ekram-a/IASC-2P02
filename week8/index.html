@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<head>
+    <title>3D Portfolio</title>
+
+    <!-- css -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- three.js importmap -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://ga.jspm.io/npm:three@0.158.0/build/three.module.js",
+                "OrbitControls": "https://ga.jspm.io/npm:three@0.158.0/examples/jsm/controls/OrbitControls.js",
+                "lil-gui": "https://ga.jspm.io/npm:lil-gui@0.19.1/dist/lil-gui.esm.js",
+                "GLTFLoader": "https://ga.jspm.io/npm:three@0.158.0/examples/jsm/loaders/GLTFLoader.js"
+            }
+        }
+    </script>
+
+    <!-- three.js -->
+    <script src="script.js" type="module"></script>
+</head>
+<body>
+    <!-- canvas -->
+    <canvas class="webgl"></canvas>
+
+    <!-- splash -->
+    <section class="splash">
+        <h1>Ekram Adem</h1>
+    </section>
+
+    <!-- content -->
+    <section class="content" id="first">
+        <h1>About me</h1>
+        <p>Hello my name is Ekram. I'm a second year IASC student.</p>
+        <p><span class="clickable" id="click1">View projects</span></p>
+    </section>
+
+    <section class="content hidden" id="second">
+        <h1>Interactive Essay</h1>
+        <p>This project is a personal take on Plato's the Allegory of the cave. It joins writing and visuals to convey my message.</p>
+        <p><span class="clickable" id="click2">Next project</span></p>
+    </section>
+
+    <section class="content hidden" id="third">
+        <h1>Data Visualization</h1>
+        <p>This is a visualization of "The Kite Runner" by Khaled Hosseini. I plan on using reoccuring words in the text and visually representing them.</p>
+        <p><span class="clickable" id="click3">Back to Home</span></p>
+    </section>
+
+    <section class="footer">
+        <p>Cyberpunk Hovercar by Karol Miklas. <a href="https://sketchfab.com/3d-models/free-cyberpunk-hovercar-3205b1075bb44ffc826bce0c2a04d74c" target="_blank">View on Sketchfab</a>.</p>
+    </section>
+</body>
