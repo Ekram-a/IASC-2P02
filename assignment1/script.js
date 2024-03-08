@@ -9,7 +9,7 @@ import { OrbitControls } from "OrbitControls"
 const sizes = {
     width: window.innerWidth,
     height: window.innerHeight,
-    aspectRatio: window.innerWidth / window.innerHeight
+    aspectRatio: window.innerWidth / window.innerHeight 
 }
 
 /**********
@@ -65,7 +65,7 @@ const barrierWallGeometry = new THREE.PlaneGeometry(10, 2)
 const barrierWall = new THREE.Mesh(barrierWallGeometry, caveMaterial)
 barrierWall.rotation.y = Math.PI * 0.5
 barrierWall.position.set(5, -1.5, 0)
-scene.add(barrierWall) 
+scene.add(barrierWall)
 
 // caveFloor
 const caveFloorGeometry = new THREE.PlaneGeometry(10, 10)
@@ -76,12 +76,19 @@ scene.add(caveFloor)
 
 // OBJECTS
 // torusKnot
-const torusKnotGeometry = new THREE.TorusKnotGeometry(1, 0.2)
-const torusKnotMaterial = new THREE.MeshNormalMaterial()
+const torusKnotGeometry = new THREE.ConeGeometry(1, 0.2)
+const torusKnotMaterial = new THREE.MeshBasicMaterial()
 const torusKnot = new THREE.Mesh(torusKnotGeometry, torusKnotMaterial)
 torusKnot.position.set(6, 1.5, 0)
 torusKnot.castShadow = true
 scene.add(torusKnot)
+
+// Object to obscure shadow
+const obscuringGeometry = new THREE.BoxGeometry(1, 1, 1)
+const obscuringMaterial = new THREE.MeshBasicMaterial({ color: 0x000000 })
+const obscuringObject = new THREE.Mesh(obscuringGeometry, obscuringMaterial)
+obscuringObject.position.set(8, 1.5, 0) // Position it between torusKnot and light source
+scene.add(obscuringObject)
 
 // SUN
 const sunGeometry = new THREE.SphereGeometry()
@@ -103,7 +110,7 @@ const ambientLight = new THREE.AmbientLight(
 scene.add(ambientLight)
 */
 
-// Direcional Light
+// Directional Light
 const directionalLight = new THREE.DirectionalLight(
     new THREE.Color('white'),
     0.5
@@ -122,6 +129,7 @@ scene.add(directionalLight)
 /*******
 ** UI **
 ********/
+/*
 const ui = new dat.GUI()
 
 const uiObject = {}
@@ -155,7 +163,62 @@ lightPositionFolder
 lightPositionFolder
     .add(uiObject, 'reset')
     .name('Reset position')
+*/
 
+/*********************
+** DOM INTERACTIONS **
+**********************/
+// domObject
+const domObject = {
+    part: 1,
+    firstChange: false,
+    secondChange: false,
+    thirdChange: false,
+    fourthChange: false
+}
+
+// continue-reading
+document.querySelector('#continue-reading').onclick = function() {
+    document.querySelector('#part-two').classList.remove('hidden')
+    document.querySelector('#part-one').classList.add('hidden')
+    domObject.part = 2
+}
+
+// restart
+document.querySelector('#restart').onclick = function() {
+    document.querySelector('#part-two').classList.add('hidden')
+    document.querySelector('#part-one').classList.remove('hidden')
+    domObject.part = 1
+
+    // reset domObject changes
+    domObject.firstChange = false
+    domObject.secondChange = false
+    domObject.thirdChange = false
+    domObject.fourthChange = false
+
+    // reset directionalLight
+    directionalLight.position.set(10, 2.5, 0)
+}
+
+// first change
+document.querySelector('#first-change').onclick = function() {
+    domObject.firstChange = true
+}
+
+// second change
+document.querySelector('#second-change').onclick = function() {
+    domObject.secondChange = true
+}
+
+// third change
+document.querySelector('#third-change').onclick = function() {
+    domObject.thirdChange = true
+}
+
+// fourth change
+document.querySelector('#fourth-change').onclick = function() {
+    domObject.fourthChange = true
+}
 
 /*******************
 ** ANIMATION LOOP **
@@ -169,8 +232,8 @@ const animation = () =>
     const elapsedTime = clock.getElapsedTime()
 
     // Animate Objects
-    torusKnot.rotation.y = elapsedTime
-    torusKnot.position.z = Math.sin(elapsedTime * 0.5) * 2
+    //torusKnot.rotation.y = elapsedTime
+    //torusKnot.position.z = Math.sin(elapsedTime * 0.5) * 2
 
     // Update directionalLightHelper
     //directionalLightHelper.update()
@@ -178,10 +241,41 @@ const animation = () =>
     // Update sun position to match directionalLight position
     sun.position.copy(directionalLight.position)
 
-    console.log(camera.position)
-
     // Controls
     controls.update()
+
+    // DOM INTERACTIONS
+    // part 1
+    if(domObject.part === 1){
+        camera.position.set(1.1, 0.3, 1.3)
+        camera.lookAt(-5, 0, 1.5)
+    }
+
+    // part 2
+    if(domObject.part === 2){
+        camera.position.set(9.9, 3.5, 10.5)
+        camera.lookAt(0, 0, 0)
+    }
+
+    // first-change
+    if(domObject.firstChange){
+       torusKnot.rotation.y = elapsedTime
+       torusKnot.rotation.z = elapsedTime
+    }
+    // second-change
+    if(domObject.secondChange){
+        torusKnot.position.y = Math.sin(elapsedTime * 0.5) * 6
+    }
+
+    // third-change
+    if(domObject.thirdChange){
+        torusKnot.position.y = 2
+    }
+
+    // fourth-change
+    if(domObject.fourthChange){
+        directionalLight.position.y -= 0.05
+    }
 
     // Renderer
     renderer.render(scene, camera)
