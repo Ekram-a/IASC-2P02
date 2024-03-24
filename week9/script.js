@@ -54,7 +54,7 @@ scene.add(directionalLight)
 ** MESHES **
 ************/
 // Cube Geometry
-//const cubeGeometry = new THREE.BoxGeometry(0.5, 0.5, 0.5)
+const cubeGeometry = new THREE.BoxGeometry(0.5, 0.5, 0.5)
 
 // Cube Materials
 const redMaterial = new THREE.MeshBasicMaterial({ 
