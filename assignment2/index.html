@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<head>
+    <title>Data Visualization Assignment</title>
+
+    <!-- css -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- three.js importmap -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://ga.jspm.io/npm:three@0.158.0/build/three.module.js",
+                "OrbitControls": "https://ga.jspm.io/npm:three@0.158.0/examples/jsm/controls/OrbitControls.js",
+                "lil-gui": "https://ga.jspm.io/npm:lil-gui@0.19.1/dist/lil-gui.esm.js"
+            }
+        }
+    </script>
+
+    <!-- dataviz 1 -->
+    <script src="script.js" type="module"></script>
+
+    <!-- dataviz 2-->
+    <script src="script2.js" type="module"></script>
+</head>
+<body>
+    <h1>Alice's Adventures in Wonderland Visualization</h1>
+    <h2>Ekram Adem</h2>
+
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eleifend et purus sed hendrerit. Nullam lectus odio, fringilla a scelerisque nec, mattis eget orci. Aliquam erat volutpat. Vivamus ultricies accumsan neque sit amet scelerisque. Vivamus egestas, ligula ut vehicula mattis, neque sem consequat enim, vel iaculis est massa vitae mauris. Proin sed metus ultricies sem commodo volutpat. Praesent mattis luctus nibh, vel condimentum magna elementum eget.</p>
+
+    <p>Curabitur semper ullamcorper nisi at porttitor. Pellentesque cursus maximus quam vulputate varius. Aliquam elementum lorem tempus dolor semper tristique. Nullam convallis augue sed tortor congue, ut tincidunt metus efficitur. Duis gravida massa et turpis blandit, a posuere nisl tristique. Proin laoreet varius pharetra. Cras convallis dui volutpat, molestie orci quis, venenatis est. Fusce quis ipsum sodales quam aliquet luctus. Aenean lacinia sit amet erat quis eleifend. Curabitur vitae justo convallis, pulvinar enim vitae, pellentesque urna. Fusce tempor quam non convallis consectetur. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Integer commodo ante in semper lobortis. Cras feugiat rutrum diam ac blandit.</p>
+
+     <!-- dataviz 1 -->
+     <div class="canvas-container">
+        <h2>Antagonists in Alice's Adventures in Wonderland</h2>
+        <!--
+        <ul>
+            <li id="red">Cupboard</li>
+            </li id="green">Hat</li>
+            <li id="blue">Broom</li>
+        </ul>
+    -->
+        <canvas class="webgl"></canvas>
+        <div id="parent1"></div>
+        <p>left click and drag to rotate. Right click and drag to move. Scroll to zoom.</p>
+    </div>
+
+    <p>Morbi blandit nibh et augue pretium congue. Cras accumsan in arcu ac eleifend. Vivamus lacus tortor, convallis id lacus sit amet, tempus rutrum orci. Mauris non diam elit. Nam a vehicula dolor. Cras condimentum semper metus. Etiam eget dapibus diam, quis ullamcorper eros. Nulla facilisi. Nullam eget ligula pellentesque, commodo ipsum ut, ullamcorper arcu.</p>
+
+    <p>Suspendisse eget arcu eget lectus tempor consectetur a eget enim. Donec mattis sit amet sem vitae imperdiet. Sed aliquet, augue id tristique fringilla, mauris mi ullamcorper mi, ultrices placerat lacus est vitae ligula. Duis imperdiet sollicitudin est vel consequat. Curabitur ut interdum dui. Pellentesque in diam hendrerit neque luctus varius in ut odio. Praesent vel egestas velit, non bibendum libero. Aliquam sit amet pretium felis, vel vehicula magna. Vivamus commodo rhoncus lorem, non faucibus metus consequat sit amet. Duis venenatis lorem a ipsum vulputate, eget pulvinar quam dapibus. Sed pharetra felis eget lorem congue, sed dignissim turpis ornare. Proin facilisis velit vel nulla fermentum, at rutrum nisl elementum. Nunc quis nisl sit amet velit dictum laoreet eu sed neque. Nullam finibus viverra facilisis.</p>
+
+    <!-- dataviz 2 -->
+    <div class="canvas-container">
+        <h2>Antagonists in Harry Potter</h2>
+        <canvas class="webgl2"></canvas>
+        <div id="parent2"></div>
+        <p>left click and drag to rotate. Right click and drag to move. Scroll to zoom.</p>
+    </div>
+
+    <p>In facilisis augue vitae velit iaculis lobortis fringilla aliquam mi. Mauris suscipit risus in porttitor varius. Fusce bibendum ipsum magna, sed pharetra odio tempus eu. Aliquam fermentum purus ut libero viverra vulputate. Nulla et libero est. Sed pretium sem quis massa posuere molestie. Proin dui ex, posuere scelerisque massa vel, eleifend semper tellus. Sed varius nulla sit amet felis vestibulum porttitor. Praesent condimentum tellus purus, a aliquam ante lobortis in. Praesent facilisis, tortor eu malesuada pellentesque, purus libero mattis urna, blandit tincidunt ante nisi non augue.</p>
+
+</body>
